@@ -1,5 +1,8 @@
 from scipy.spatial import distance
-import dlib
+try:
+    import dlib
+except ImportError:
+    dlib = None
 import cv2
 import numpy as np
 import base64
@@ -13,8 +16,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 model_path = os.path.join(BASE_DIR, 'CruiseAlert', 'models', 'shape_predictor_68_face_landmarks.dat')
 
 
-detector = dlib.get_frontal_face_detector()
-predictor = dlib.shape_predictor(model_path)
+if dlib:
+    detector = dlib.get_frontal_face_detector()
+    predictor = dlib.shape_predictor(model_path)
+else:
+    detector = None
+    predictor = None
 
 LEFT_EYE = list(range(36, 42))
 RIGHT_EYE = list(range(42, 48))
@@ -38,6 +45,15 @@ ear = 0
 def detect_sleep_from_frame(image_data):
     global counter
     global frames_to_ignore
+
+    if detector is None:
+        return {
+            "status": "System Error: dlib not installed",
+            "ear": 0,
+            "left_eye": [],
+            "right_eye": [],
+        }
+
     image_bytes = base64.b64decode(image_data)
     image = Image.open(io.BytesIO(image_bytes))
     image = cv2.cvtColor(np.array(image), cv2.COLOR_RGB2BGR)

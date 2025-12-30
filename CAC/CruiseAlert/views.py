@@ -138,8 +138,13 @@ def settings_view(request):
         status = request.POST.get('status')
         description = request.POST.get('description')
 
+        # Ensure profile exists before updating
+        if not hasattr(request.user, 'profile'):
+            Profile.objects.create(user=request.user)
+
         if avatar:
             request.user.profile.avatar = avatar
+
         if status:
             request.user.profile.status = status
         if description:
@@ -189,7 +194,10 @@ def detection(request):
         logger.info("Received request data: %s", request.body)
         data = request.body.decode('utf-8')
         try:
-            image_data = re.search(r'base64,(.*)', data).group(1)
+            match = re.search(r'base64,(.*)', data)
+            if not match:
+                raise ValueError("Invalid image data format")
+            image_data = match.group(1)
             # Call the sleep detection function
             detection_result = detect_sleep_from_frame(image_data)
 
