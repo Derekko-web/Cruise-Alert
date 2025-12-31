@@ -1,0 +1,45 @@
+Collecting django
+  Using cached django-6.0-py3-none-any.whl.metadata (3.9 kB)
+Collecting scipy
+  Using cached scipy-1.16.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (62 kB)
+Collecting dlib
+  Using cached dlib-20.0.0.tar.gz (3.3 MB)
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Collecting opencv-python-headless
+  Using cached opencv_python_headless-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl.metadata (19 kB)
+Collecting Pillow
+  Using cached pillow-12.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (8.8 kB)
+Collecting asgiref>=3.9.1 (from django)
+  Using cached asgiref-3.11.0-py3-none-any.whl.metadata (9.3 kB)
+Collecting sqlparse>=0.5.0 (from django)
+  Using cached sqlparse-0.5.5-py3-none-any.whl.metadata (4.7 kB)
+Collecting numpy<2.6,>=1.25.2 (from scipy)
+  Using cached numpy-2.4.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (6.6 kB)
+  Using cached numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl.metadata (62 kB)
+Using cached django-6.0-py3-none-any.whl (8.3 MB)
+Using cached scipy-1.16.3-cp312-cp312-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (35.7 MB)
+Using cached opencv_python_headless-4.12.0.88-cp37-abi3-manylinux2014_x86_64.manylinux_2_17_x86_64.whl (54.0 MB)
+Using cached numpy-2.2.6-cp312-cp312-manylinux_2_17_x86_64.manylinux2014_x86_64.whl (16.5 MB)
+Using cached pillow-12.0.0-cp312-cp312-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (7.0 MB)
+Using cached asgiref-3.11.0-py3-none-any.whl (24 kB)
+Using cached sqlparse-0.5.5-py3-none-any.whl (46 kB)
+Building wheels for collected packages: dlib
+  Building wheel for dlib (pyproject.toml): started
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): still running...
+  Building wheel for dlib (pyproject.toml): finished with status 'done'
+  Created wheel for dlib: filename=dlib-20.0.0-cp312-cp312-linux_x86_64.whl size=4487082 sha256=674de258d8863005edb07d975b939e1967efcf872882e0debb784557f8b0dc0f
+  Stored in directory: /home/jules/.cache/pip/wheels/35/bc/f4/3551aa7a295bf59b6cbf9cb588197b668052e5ec92a02aff7f
+Successfully built dlib
+Installing collected packages: dlib, sqlparse, Pillow, numpy, asgiref, scipy, opencv-python-headless, django
+
+Successfully installed Pillow-12.0.0 asgiref-3.11.0 django-6.0 dlib-20.0.0 numpy-2.2.6 opencv-python-headless-4.12.0.88 scipy-1.16.3 sqlparse-0.5.5

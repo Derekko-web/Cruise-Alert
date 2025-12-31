@@ -1,0 +1,9 @@
+Watching for file changes with StatReloader
+[31/Dec/2025 09:55:51] "GET /detection/ HTTP/1.1" 200 11657
+[31/Dec/2025 09:55:51] "GET /static/Sounds/mixkit-classic-short-alarm-993.wav HTTP/1.1" 200 227752
+[31/Dec/2025 09:55:52] "POST /detection/ HTTP/1.1" 200 74
+[31/Dec/2025 09:55:52] "POST /detection/ HTTP/1.1" 200 74
+[31/Dec/2025 09:55:53] "POST /detection/ HTTP/1.1" 200 74
+[31/Dec/2025 09:55:53] "POST /detection/ HTTP/1.1" 200 74
+[31/Dec/2025 09:55:53] "POST /detection/ HTTP/1.1" 200 74
+[31/Dec/2025 09:55:53,251] - Broken pipe from ('127.0.0.1', 45252)
