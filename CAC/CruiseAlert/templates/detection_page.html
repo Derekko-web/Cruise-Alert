@@ -209,8 +209,12 @@
       <p id="status">Status: Awake</p>
 
       <div class="button-container">
-        <button id="start" class="btn btn-primary">Start Detection</button>
-        <button id="stop" class="btn btn-secondary">Stop Detection</button>
+        <button id="start" class="btn btn-primary">
+          <i class="fas fa-play me-2"></i> Start Detection
+        </button>
+        <button id="stop" class="btn btn-secondary" disabled>
+          <i class="fas fa-stop me-2"></i> Stop Detection
+        </button>
       </div>
 
       <!-- CSRF token hidden input -->
@@ -224,7 +228,7 @@
       </div>
     </footer>
 
-    <audio id="alertSound" src="{% static 'Sounds/mixkit-classic-short-alarm-993.wav' %}" preload="auto"> loop</audio>
+    <audio id="alertSound" src="{% static 'Sounds/mixkit-classic-short-alarm-993.wav' %}" preload="auto" loop></audio>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -246,18 +250,41 @@
       let latestLeftEye = null;
       let latestRightEye = null;
 
+      function setButtonState(isDetecting) {
+        if (isDetecting) {
+          startButton.disabled = true;
+          startButton.innerHTML =
+            '<i class="fas fa-spinner fa-spin me-2"></i> Running...';
+          stopButton.disabled = false;
+        } else {
+          startButton.disabled = false;
+          startButton.innerHTML =
+            '<i class="fas fa-play me-2"></i> Start Detection';
+          stopButton.disabled = true;
+        }
+      }
+
       async function startCamera() {
         try {
+          startButton.disabled = true;
+          startButton.innerHTML =
+            '<i class="fas fa-spinner fa-spin me-2"></i> Initializing...';
+
           stream = await navigator.mediaDevices.getUserMedia({ video: true });
           video.srcObject = stream;
           video.style.display = "none"; // Ensure video remains hidden
           canvas.style.display = "block"; // Show the canvas when starting detection
           drawFrame(); // Start the drawing loop
+
+          setButtonState(true);
+          interval = setInterval(sendFrameToServer, 100); // Send frame every 100ms
+          statusText.textContent = "Status: Detecting...";
         } catch (err) {
           console.error("Error accessing the camera: ", err);
           alert(
             "Unable to access the camera. Please check your permissions and try again."
           );
+          setButtonState(false);
         }
       }
 
@@ -273,6 +300,7 @@
         // Hide the canvas when stopping detection
         canvas.style.display = "none";
         statusText.textContent = "Status: Detection Stopped";
+        setButtonState(false);
       }
 
       function sendFrameToServer() {
@@ -350,8 +378,6 @@
           return;
         }
         startCamera();
-        interval = setInterval(sendFrameToServer, 100); // Send frame every 500ms for smoother tracking
-        statusText.textContent = "Status: Detecting...";
       });
 
       stopButton.addEventListener("click", () => {
