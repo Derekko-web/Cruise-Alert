@@ -1,0 +1,6 @@
+Watching for file changes with StatReloader
+[02/Jan/2026 10:02:21] "GET /login/ HTTP/1.1" 200 4211
+[02/Jan/2026 10:02:25] "POST /login/ HTTP/1.1" 200 4277
+[02/Jan/2026 10:02:45] "GET /login/ HTTP/1.1" 200 4211
+[02/Jan/2026 10:02:47] "POST /login/ HTTP/1.1" 200 4277
+[02/Jan/2026 10:03:12] "GET /login/ HTTP/1.1" 200 4211
