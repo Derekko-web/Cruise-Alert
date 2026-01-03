@@ -206,11 +206,11 @@
         <video id="video" width="640" height="480" autoplay playsinline></video>
         <canvas id="canvas" width="640" height="480"></canvas>
       </div>
-      <p id="status">Status: Awake</p>
+      <p id="status" aria-live="polite">Status: Awake</p>
 
       <div class="button-container">
         <button id="start" class="btn btn-primary">Start Detection</button>
-        <button id="stop" class="btn btn-secondary">Stop Detection</button>
+        <button id="stop" class="btn btn-secondary" disabled>Stop Detection</button>
       </div>
 
       <!-- CSRF token hidden input -->
@@ -224,7 +224,7 @@
       </div>
     </footer>
 
-    <audio id="alertSound" src="{% static 'Sounds/mixkit-classic-short-alarm-993.wav' %}" preload="auto"> loop</audio>
+    <audio id="alertSound" src="{% static 'Sounds/mixkit-classic-short-alarm-993.wav' %}" preload="auto" loop></audio>
 
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
@@ -352,10 +352,14 @@
         startCamera();
         interval = setInterval(sendFrameToServer, 100); // Send frame every 500ms for smoother tracking
         statusText.textContent = "Status: Detecting...";
+        startButton.disabled = true;
+        stopButton.disabled = false;
       });
 
       stopButton.addEventListener("click", () => {
         stopCamera();
+        startButton.disabled = false;
+        stopButton.disabled = true;
       });
     </script>
   </body>
