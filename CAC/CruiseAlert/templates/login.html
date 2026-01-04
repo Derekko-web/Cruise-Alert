@@ -113,7 +113,15 @@
           <label for="id_password">Password</label>
           <input type="password" name="password" id="id_password" required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" id="loginButton">
+          <span
+            id="loginSpinner"
+            class="spinner-border spinner-border-sm d-none"
+            role="status"
+            aria-hidden="true"
+          ></span>
+          <span id="loginText">Login</span>
+        </button>
       </form>
       <div class="additional-options">
         <a href="{% url 'guest_login' %}">Continue as Guest</a>
@@ -122,5 +130,19 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.querySelector("form").addEventListener("submit", function (e) {
+        const button = document.getElementById("loginButton");
+        const spinner = document.getElementById("loginSpinner");
+        const text = document.getElementById("loginText");
+
+        // Disable button to prevent double submission
+        button.disabled = true;
+        // Show spinner
+        spinner.classList.remove("d-none");
+        // Change text
+        text.textContent = " Logging in...";
+      });
+    </script>
   </body>
 </html>
