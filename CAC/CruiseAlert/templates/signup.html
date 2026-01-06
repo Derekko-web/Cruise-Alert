@@ -163,7 +163,7 @@
           </div>
           {% endif %}
         </div>
-        <button type="submit">Sign Up</button>
+        <button type="submit" id="signupButton">Sign Up</button>
       </form>
       <div class="additional-options">
         <p>Already have an account? <a href="{% url 'login' %}">Log In</a></p>
@@ -171,5 +171,25 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const form = document.querySelector('form');
+      const button = document.getElementById('signupButton');
+
+      form.addEventListener('submit', function() {
+        // Prevent double submission if valid
+        if (form.checkValidity()) {
+          button.disabled = true;
+          button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Signing up...';
+        }
+      });
+
+      // Reset button if page comes from bfcache (back/forward cache)
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            button.disabled = false;
+            button.innerHTML = 'Sign Up';
+        }
+      });
+    </script>
   </body>
 </html>

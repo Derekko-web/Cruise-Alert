@@ -113,7 +113,7 @@
           <label for="id_password">Password</label>
           <input type="password" name="password" id="id_password" required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" id="loginButton">Login</button>
       </form>
       <div class="additional-options">
         <a href="{% url 'guest_login' %}">Continue as Guest</a>
@@ -122,5 +122,25 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const form = document.querySelector('form');
+      const button = document.getElementById('loginButton');
+
+      form.addEventListener('submit', function() {
+        // Prevent double submission if valid
+        if (form.checkValidity()) {
+          button.disabled = true;
+          button.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span> Logging in...';
+        }
+      });
+
+      // Reset button if page comes from bfcache (back/forward cache)
+      window.addEventListener('pageshow', function(event) {
+        if (event.persisted) {
+            button.disabled = false;
+            button.innerHTML = 'Login';
+        }
+      });
+    </script>
   </body>
 </html>
