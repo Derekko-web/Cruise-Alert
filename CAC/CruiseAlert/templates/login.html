@@ -101,7 +101,7 @@
   <body>
     <div class="login-container">
       <h2>Welcome Back</h2>
-      <form method="post" action="{% url 'login' %}">
+      <form method="post" action="{% url 'login' %}" id="loginForm">
         {% csrf_token %} {% if error %}
         <p class="error-message">{{ error }}</p>
         {% endif %}
@@ -113,7 +113,7 @@
           <label for="id_password">Password</label>
           <input type="password" name="password" id="id_password" required />
         </div>
-        <button type="submit">Login</button>
+        <button type="submit" id="loginBtn">Login</button>
       </form>
       <div class="additional-options">
         <a href="{% url 'guest_login' %}">Continue as Guest</a>
@@ -122,5 +122,34 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      const loginForm = document.getElementById('loginForm');
+      const loginBtn = document.getElementById('loginBtn');
+
+      if (loginForm && loginBtn) {
+        // Store original text for restoration
+        const originalBtnText = loginBtn.innerText;
+
+        loginForm.addEventListener('submit', function(e) {
+          // Only show spinner if form is valid (browser validation handles the rest)
+          if (this.checkValidity()) {
+            loginBtn.disabled = true;
+            loginBtn.innerHTML = `
+              <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+              Logging in...
+            `;
+          }
+        });
+
+        // Handle Back/Forward Cache (BFCache)
+        // Ensure button doesn't get stuck in disabled state if page is restored from bfcache
+        window.addEventListener('pageshow', function(event) {
+             if (event.persisted) {
+                 loginBtn.disabled = false;
+                 loginBtn.innerText = originalBtnText; // Reset text
+             }
+        });
+      }
+    </script>
   </body>
 </html>
