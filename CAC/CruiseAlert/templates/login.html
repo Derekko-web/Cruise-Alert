@@ -122,5 +122,29 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (function() {
+        document.querySelectorAll('form').forEach(function(form) {
+          form.addEventListener('submit', function(event) {
+            if (!form.checkValidity()) return;
+            const btn = form.querySelector('button[type="submit"]');
+            if (btn) {
+              btn.dataset.originalText = btn.innerHTML;
+              btn.disabled = true;
+              btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+            }
+          });
+        });
+
+        window.addEventListener('pageshow', function(event) {
+           document.querySelectorAll('button[type="submit"]').forEach(function(btn) {
+             if (btn.disabled && btn.dataset.originalText) {
+                btn.disabled = false;
+                btn.innerHTML = btn.dataset.originalText;
+             }
+           });
+        });
+      })();
+    </script>
   </body>
 </html>
