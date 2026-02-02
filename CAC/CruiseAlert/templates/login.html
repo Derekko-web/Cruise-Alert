@@ -122,5 +122,31 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const loginContainer = document.querySelector(".login-container");
+        if (!loginContainer) return;
+
+        const form = loginContainer.querySelector("form");
+        const btn = form.querySelector("button[type='submit']");
+        const originalText = btn.innerHTML;
+
+        form.addEventListener("submit", function () {
+          if (form.checkValidity()) {
+            btn.innerHTML =
+              '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Logging in...';
+            btn.style.opacity = "0.8";
+            btn.disabled = true;
+          }
+        });
+
+        window.addEventListener("pageshow", function (event) {
+          // Reset button state when page is shown from BFCache
+          btn.innerHTML = originalText;
+          btn.style.opacity = "1";
+          btn.disabled = false;
+        });
+      });
+    </script>
   </body>
 </html>
