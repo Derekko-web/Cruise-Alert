@@ -171,5 +171,29 @@
     </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      (function() {
+        const form = document.querySelector('.signup-container form');
+        if (!form) return;
+
+        const btn = form.querySelector('button[type="submit"]');
+        if (!btn) return;
+
+        const originalText = btn.innerHTML;
+
+        form.addEventListener('submit', function(e) {
+          if (form.checkValidity()) {
+            btn.disabled = true;
+            btn.innerHTML = '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Loading...';
+          }
+        });
+
+        // Re-enable button when page is restored from cache (back button)
+        window.addEventListener('pageshow', function(event) {
+            btn.disabled = false;
+            btn.innerHTML = originalText;
+        });
+      })();
+    </script>
   </body>
 </html>
